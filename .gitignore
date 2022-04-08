@@ -1,0 +1,5 @@
+venv/
+*terraform*
+assets/data*
+.python_packages
+__pycache__
