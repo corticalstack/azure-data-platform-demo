@@ -1,0 +1,50 @@
+{
+    "name": "asa_aw_productcategory_enriched_delta_to dedicated_sqlpool",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "linkedService": {
+                        "referenceName": "cs-eur-research-dp-olap-synw-WorkspaceDefaultStorage",
+                        "type": "LinkedServiceReference"
+                    },
+                    "name": "AWProductCategory"
+                }
+            ],
+            "sinks": [
+                {
+                    "linkedService": {
+                        "referenceName": "cs_eur_research_dp_synw_dedicated_sqlpool01",
+                        "type": "LinkedServiceReference"
+                    },
+                    "name": "AWProductCategoryDedicatedSql"
+                }
+            ],
+            "transformations": [],
+            "scriptLines": [
+                "source(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false,",
+                "     format: 'delta',",
+                "     fileSystem: 'enriched',",
+                "     folderPath: 'erpcore/AdventureWorks/ProductCategory') ~> AWProductCategory",
+                "AWProductCategory sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'table',",
+                "     store: 'synapseanalytics',",
+                "     schemaName: 'AdventureWorks',",
+                "     tableName: 'product_category',",
+                "     insertable: true,",
+                "     updateable: false,",
+                "     deletable: false,",
+                "     upsertable: false,",
+                "     recreate: true,",
+                "     staged: true,",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true,",
+                "     errorHandlingOption: 'stopOnFirstError') ~> AWProductCategoryDedicatedSql"
+            ]
+        }
+    }
+}

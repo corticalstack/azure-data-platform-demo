@@ -9,7 +9,7 @@ resource "azurerm_synapse_workspace" "synapseworkspace" {
   location                             = var.location
   storage_data_lake_gen2_filesystem_id = azurerm_storage_data_lake_gen2_filesystem.synapsecontainer.id
   sql_administrator_login              = "sqladminuser"
-  sql_administrator_login_password     = "BeanieBoblets1234"
+  sql_administrator_login_password     = "#########"
   managed_virtual_network_enabled      = true  
   public_network_access_enabled        = true 
   data_exfiltration_protection_enabled = true 

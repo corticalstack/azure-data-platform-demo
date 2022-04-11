@@ -1,0 +1,41 @@
+{
+    "name": "pipeline_copy_aw_sales_fact_dedicated_sqlpool_to_lake",
+    "properties": {
+        "activities": [
+            {
+                "name": "Data flow1",
+                "type": "ExecuteDataFlow",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "1.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataflow": {
+                        "referenceName": "asa_aw_sales_fact_dedicated_sqlpool_to_lake",
+                        "type": "DataFlowReference"
+                    },
+                    "staging": {
+                        "linkedService": {
+                            "referenceName": "cs-eur-research-dp-olap-synw-WorkspaceDefaultStorage",
+                            "type": "LinkedServiceReference"
+                        },
+                        "folderPath": "enriched"
+                    },
+                    "compute": {
+                        "coreCount": 8,
+                        "computeType": "General"
+                    },
+                    "traceLevel": "Fine"
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2022-04-11T20:00:13Z"
+    },
+    "type": "Microsoft.Synapse/workspaces/pipelines"
+}

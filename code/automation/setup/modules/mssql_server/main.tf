@@ -5,7 +5,7 @@ resource "azurerm_mssql_server" "server" {
   location                     = var.location
   version                      = "12.0"
   administrator_login          = "sqladminuser"
-  administrator_login_password = "BeanieBoblets1234"
+  administrator_login_password = "Be#ni##ts###"
 }
 
 resource "azurerm_sql_firewall_rule" "example" {

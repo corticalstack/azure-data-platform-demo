@@ -1,0 +1,41 @@
+{
+    "name": "pipeline_move_lake_aw_product_enriched_to_dedicated_sqlpool",
+    "properties": {
+        "activities": [
+            {
+                "name": "EnrichedDeltaToDedicatedSqlPool",
+                "type": "ExecuteDataFlow",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "1.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataflow": {
+                        "referenceName": "asa_aw_product_enriched_delta_to dedicated_sqlpool",
+                        "type": "DataFlowReference"
+                    },
+                    "staging": {
+                        "linkedService": {
+                            "referenceName": "cs-eur-research-dp-olap-synw-WorkspaceDefaultStorage",
+                            "type": "LinkedServiceReference"
+                        },
+                        "folderPath": "enriched/erpcore"
+                    },
+                    "compute": {
+                        "coreCount": 8,
+                        "computeType": "General"
+                    },
+                    "traceLevel": "Fine"
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2022-04-09T12:29:22Z"
+    },
+    "type": "Microsoft.Synapse/workspaces/pipelines"
+}
