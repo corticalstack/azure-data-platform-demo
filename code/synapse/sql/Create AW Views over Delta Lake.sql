@@ -1,3 +1,26 @@
+CREATE OR ALTER VIEW AdventureWorks.v_fact_sales AS
+SELECT S.SalesOrderID,
+S.OrderDate,
+S.Status,
+SD.ProductID,
+S.CustomerID,
+SUM(SD.LineTotal) TotalCost
+FROM OPENROWSET(
+        BULK 'abfss://enriched@csresearchdpolaplakest.dfs.core.windows.net/erpcore/AdventureWorks/SalesOrderHeader',
+        FORMAT = 'DELTA'
+    ) AS S
+INNER JOIN OPENROWSET(
+        BULK 'abfss://enriched@csresearchdpolaplakest.dfs.core.windows.net/erpcore/AdventureWorks/SalesOrderDetail',
+        FORMAT = 'DELTA'
+    ) AS SD
+ON S.SalesOrderID = SD.SalesOrderID
+GROUP BY
+S.SalesOrderID,
+S.OrderDate,
+S.Status,
+SD.ProductID,
+S.CustomerID
+
 CREATE OR ALTER VIEW AdventureWorks.v_customer
 AS
 SELECT
